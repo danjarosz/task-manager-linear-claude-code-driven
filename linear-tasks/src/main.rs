@@ -132,7 +132,7 @@ enum TemplateAction {
         /// Task title
         title: String,
 
-        /// Time horizon: annual, monthly, weekly
+        /// Time horizon: annual, monthly, weekly, daily
         #[arg(short = 'H', long)]
         horizon: String,
 
@@ -494,6 +494,9 @@ async fn handle_generate(
             continue;
         }
 
+        // Collect template IDs to mark as generated after the loop
+        let mut generated_ids: Vec<String> = vec![];
+
         for template in templates {
             // Check if already generated (unless force)
             if !force && store.was_generated(&template.id, &current_date) {
@@ -563,7 +566,7 @@ async fn handle_generate(
                             template.title,
                             task.identifier.cyan()
                         );
-                        store.mark_generated(&template.id, &current_date);
+                        generated_ids.push(template.id.clone());
                         total_created += 1;
                     }
                     Err(e) => {
@@ -571,6 +574,11 @@ async fn handle_generate(
                     }
                 }
             }
+        }
+
+        // Mark templates as generated after the loop (to avoid borrow conflict)
+        for template_id in generated_ids {
+            store.mark_generated(&template_id, &current_date);
         }
     }
 

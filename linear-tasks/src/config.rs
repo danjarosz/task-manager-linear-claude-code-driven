@@ -86,6 +86,7 @@ pub fn setup_wizard() -> Result<AppConfig> {
             Some(default_team)
         },
         time_horizon_labels: Default::default(),
+        daytime_block_labels: Default::default(),
     };
 
     save_config(&config)?;

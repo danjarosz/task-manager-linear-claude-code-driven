@@ -1,16 +1,16 @@
 # Linear Tasks 📋
 
-A template-based terminal task manager powered by Linear, designed for managing annual, monthly, and weekly recurring tasks with automatic generation to day-based projects.
+A template-based terminal task manager powered by Linear, designed for managing annual, monthly, weekly, and daily recurring tasks with automatic generation to day-based projects.
 
 ## Workflow Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    LOCAL TEMPLATE STORAGE                        │
-│  ┌──────────┐   ┌───────────┐   ┌──────────┐                    │
-│  │ 🎯 Annual │   │ 📅 Monthly │   │ 📆 Weekly │                    │
-│  │ Templates │   │ Templates  │   │ Templates │                    │
-│  └──────────┘   └───────────┘   └──────────┘                    │
+│  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌─────────┐         │
+│  │ 🎯 Annual │  │ 📅 Monthly │  │ 📆 Weekly │  │ 📌 Daily │         │
+│  │ Templates │  │ Templates  │  │ Templates │  │Templates│         │
+│  └──────────┘  └───────────┘  └──────────┘  └─────────┘         │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               │ generate --week current
@@ -29,7 +29,7 @@ A template-based terminal task manager powered by Linear, designed for managing 
 
 ## Features
 
-- 📝 **Template System** - Store recurring tasks locally (annual, monthly, weekly)
+- 📝 **Template System** - Store recurring tasks locally (annual, monthly, weekly, daily)
 - 🚀 **One-Command Generation** - Push all templates to Linear week projects
 - 📅 **Day-Based Projects** - Tasks organized by Monday-Sunday projects
 - 🌅 **Daytime Blocks** - Morning, Work, Afternoon, Evening organization
@@ -100,13 +100,16 @@ linear-tasks templates add "Invoice review" -H monthly -d mon -b work -p 2
 
 # Annual task
 linear-tasks templates add "Tax preparation" -H annual -d mon -b work -p 1
+
+# Daily task (applies to all days automatically)
+linear-tasks templates add "Morning meditation" -H daily -b morning
 ```
 
 ### Options
 
 | Flag | Description |
 |------|-------------|
-| `-H, --horizon` | Time horizon: `annual`, `monthly`, `weekly` |
+| `-H, --horizon` | Time horizon: `annual`, `monthly`, `weekly`, `daily` |
 | `-d, --days` | Days of week: `mon,tue,wed,thu,fri,sat,sun` |
 | `-b, --block` | Daytime block: `morning`, `work`, `afternoon`, `evening` |
 | `-p, --priority` | Priority: 1=Urgent, 2=High, 3=Normal, 4=Low |
