@@ -82,6 +82,28 @@ linear-tasks --team "Day-to-day operations" generate --week current
 linear-tasks show today
 ```
 
+## Global Options
+
+These flags apply to all commands:
+
+| Flag | Description |
+|------|-------------|
+| `--api-key <KEY>` | Linear API key (alternative to `LINEAR_API_KEY` env var) |
+| `-t, --team <TEAM>` | Team name or ID to use |
+
+Example usage:
+
+```bash
+# Use specific API key
+linear-tasks --api-key "lin_api_..." show today
+
+# Specify team
+linear-tasks --team "Day-to-day operations" generate --week current
+
+# Combine both
+linear-tasks --api-key "lin_api_..." --team "My Team" dashboard
+```
+
 ## Template Management
 
 Templates are stored locally in `~/.config/linear-tasks/templates.json`.
@@ -112,7 +134,7 @@ linear-tasks templates add "Morning meditation" -H daily -b morning
 | `-H, --horizon` | Time horizon: `annual`, `monthly`, `weekly`, `daily` |
 | `-d, --days` | Days of week: `mon,tue,wed,thu,fri,sat,sun` |
 | `-b, --block` | Daytime block: `morning`, `work`, `afternoon`, `evening` |
-| `-p, --priority` | Priority: 1=Urgent, 2=High, 3=Normal, 4=Low |
+| `-p, --priority` | Priority: 1=🔴 Urgent, 2=🟠 High, 3=🟡 Normal, 4=🟢 Low |
 | `--description` | Task description |
 
 ### List Templates
@@ -122,6 +144,7 @@ linear-tasks templates add "Morning meditation" -H daily -b morning
 linear-tasks templates list
 
 # Filter by horizon
+linear-tasks templates list -H daily
 linear-tasks templates list -H weekly
 linear-tasks templates list -H monthly
 linear-tasks templates list -H annual
@@ -226,7 +249,8 @@ linear-tasks status DAY-123 "Backlog"
 ### View Tasks
 
 ```bash
-# Today's tasks
+# Today's tasks (default when no argument given)
+linear-tasks show
 linear-tasks show today
 
 # Tomorrow's tasks
@@ -251,7 +275,7 @@ linear-tasks dashboard
 
 Shows:
 - Task statistics (total, active, completed, overdue)
-- Template summary (annual, monthly, weekly counts)
+- Template summary (annual, monthly, weekly, daily counts)
 - Today's tasks
 
 ## Interactive Mode
